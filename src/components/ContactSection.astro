@@ -15,7 +15,8 @@ import { profile } from '../data/profileData';
       <button id="copy-email" type="button" data-email={profile.email} class="btn-ghost mt-6 w-full">Copiar email</button>
       <p id="copy-status" class="mt-2 h-4 font-mono text-xs text-emerald-400" role="status" aria-live="polite"></p>
     </div>
-    <form id="contact-form" class="card space-y-4 p-6" data-email={profile.email}>
+    <form id="contact-form" class="card space-y-4 p-6" data-email={profile.email} data-public-key={profile.emailjs.publicKey} data-service-id={profile.emailjs.serviceId} data-template-id={profile.emailjs.templateId}>
+      <input type="checkbox" name="botcheck" class="hidden" tabindex="-1" autocomplete="off" />
       <div>
         <label for="name" class="font-mono text-xs text-mute">Nombre</label>
         <input id="name" name="name" required class="mt-1 w-full rounded-lg border border-line bg-zinc-950 px-3 py-2 text-sm outline-none transition focus:border-violet-500" />
@@ -28,8 +29,8 @@ import { profile } from '../data/profileData';
         <label for="message" class="font-mono text-xs text-mute">Mensaje</label>
         <textarea id="message" name="message" rows="4" required class="mt-1 w-full resize-y rounded-lg border border-line bg-zinc-950 px-3 py-2 text-sm outline-none transition focus:border-violet-500"></textarea>
       </div>
-      <button type="submit" class="btn-primary w-full">Enviar mensaje</button>
-      <p class="text-xs text-zinc-500">Se abrirá tu cliente de correo con el mensaje preparado.</p>
+      <button id="submit-btn" type="submit" class="btn-primary w-full disabled:opacity-60">Enviar mensaje</button>
+      <p id="form-status" class="min-h-5 font-mono text-xs" role="status" aria-live="polite"></p>
     </form>
   </div>
 </section>
@@ -47,12 +48,50 @@ import { profile } from '../data/profileData';
     setTimeout(() => { if (status) status.textContent = ''; }, 2500);
   });
 
-  const form = document.getElementById('contact-form') as HTMLFormElement | null;
-  form?.addEventListener('submit', (e) => {
+    const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const formStatus = document.getElementById('form-status');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+
+  function show(msg: string, ok: boolean) {
+    if (!formStatus) return;
+    formStatus.textContent = msg;
+    formStatus.className = `min-h-5 font-mono text-xs ${ok ? 'text-emerald-400' : 'text-red-400'}`;
+  }
+
+  form?.addEventListener('submit', async (e) => {
     e.preventDefault();
     const d = new FormData(form);
-    const subject = encodeURIComponent(`Contacto desde portfolio: ${d.get('name')}`);
-    const body = encodeURIComponent(`${d.get('message')}\n\n— ${d.get('name')} (${d.get('email')})`);
-    window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${body}`;
+    const { publicKey, serviceId, templateId } = form.dataset;
+
+    // Si EmailJS no está configurado, respaldo con mailto.
+    if (!publicKey || !serviceId || !templateId) {
+      const subject = encodeURIComponent(`Contacto desde portfolio: ${d.get('name')}`);
+      const body = encodeURIComponent(`${d.get('message')}\n\n— ${d.get('name')} (${d.get('email')})`);
+      window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${body}`;
+      return;
+    }
+
+    // Anti-spam: si el campo oculto está marcado, no se envía.
+    if (d.get('botcheck')) return;
+
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Enviando…'; }
+    try {
+      const emailjs = (await import('@emailjs/browser')).default;
+      emailjs.init({ publicKey });
+      const response = await emailjs.send(serviceId, templateId, {
+        name: d.get('name') as string,
+        email: d.get('email') as string,
+        message: d.get('message') as string,
+        to_email: form.dataset.email as string,
+      });
+      console.log('Éxito:', response.status, response.text);
+      show('Mensaje enviado. Te responderé lo antes posible.', true);
+      form.reset();
+    } catch (error) {
+      console.error('Error:', error);
+      show('No se pudo enviar. Escríbeme directamente a ' + form.dataset.email, false);
+    } finally {
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'Enviar mensaje'; }
+    }
   });
 </script>
