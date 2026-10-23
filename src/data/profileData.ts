@@ -8,8 +8,8 @@ export const profile = {
   phone: '+34 684 02 38 36',
   location: 'Velilla de San Antonio, Madrid',
   // TODO: sustituye por tus URLs reales
-  github: 'https://github.com/',
-  linkedin: 'https://www.linkedin.com/',
+  github: 'https://github.com/robburgoss',
+  linkedin: 'https://www.linkedin.com/in/roberto-burgos-vidal-7196a228b/?isSelfProfile=true',
   cv: '/cv-roberto-burgos.pdf',
 };
 
