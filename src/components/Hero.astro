@@ -1,0 +1,18 @@
+---
+import { profile } from '../data/profileData';
+---
+<section id="top" class="section !pt-20 sm:!pt-28">
+  <p class="badge border-violet-500/40 text-violet-300">{profile.badge}</p>
+  <h1 class="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">{profile.name}</h1>
+  <p class="mt-6 max-w-2xl text-base leading-relaxed text-mute sm:text-lg">{profile.summary}</p>
+  <div class="mt-8 flex flex-wrap gap-3">
+    <a href="#projects" class="btn-primary">Ver proyectos</a>
+    <a href={`mailto:${profile.email}`} class="btn-ghost">Contactar</a>
+  </div>
+  <ul class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-xs text-mute">
+    <li><a class="transition hover:text-violet-400" href={profile.github} target="_blank" rel="noopener noreferrer">github</a></li>
+    <li><a class="transition hover:text-violet-400" href={profile.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a></li>
+    <li><a class="transition hover:text-violet-400" href={`mailto:${profile.email}`}>{profile.email}</a></li>
+    <li class="text-zinc-500">{profile.location}</li>
+  </ul>
+</section>

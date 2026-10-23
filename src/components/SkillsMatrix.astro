@@ -1,0 +1,19 @@
+---
+import { skills } from '../data/profileData';
+---
+<section id="skills" class="section">
+  <p class="h2">// skills --list</p>
+  <h2 class="h2-title">Matriz de habilidades</h2>
+  <div class="grid gap-4 md:grid-cols-2">
+    {skills.map((group) => (
+      <div class={`card p-6 ${group.accent === 'blue' ? 'hover:border-blue-500/60 hover:shadow-glowBlue' : 'card-hover'}`}>
+        <h3 class="mb-4 font-mono text-sm text-ink">
+          <span class={group.accent === 'blue' ? 'text-blue-400' : 'text-violet-400'}>&gt;</span> {group.category}
+        </h3>
+        <ul class="flex flex-wrap gap-2">
+          {group.items.map((i) => <li class="badge">{i}</li>)}
+        </ul>
+      </div>
+    ))}
+  </div>
+</section>

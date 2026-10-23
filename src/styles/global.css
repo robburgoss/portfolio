@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-padding-top: 5rem; }
+  :focus-visible { outline: 2px solid #8b5cf6; outline-offset: 3px; border-radius: 4px; }
+}
+
+@layer components {
+  .section { @apply mx-auto max-w-5xl px-5 py-20 sm:px-8; }
+  .h2 { @apply font-mono text-sm font-medium text-violet-400 mb-2; }
+  .h2-title { @apply text-2xl font-semibold tracking-tight sm:text-3xl mb-10; }
+  .card { @apply rounded-xl border border-line bg-surface/60 transition duration-200; }
+  .card-hover { @apply hover:border-violet-500/60 hover:shadow-glow; }
+  .badge { @apply inline-flex items-center rounded-md border border-line bg-zinc-900 px-2.5 py-1 font-mono text-xs text-zinc-300 transition duration-200; }
+  .btn { @apply inline-flex items-center justify-center rounded-lg px-5 py-2.5 text-sm font-medium transition duration-200; }
+  .btn-primary { @apply btn bg-violet-500 text-white hover:bg-violet-400 hover:shadow-glow; }
+  .btn-ghost { @apply btn border border-line text-ink hover:border-blue-500/70 hover:shadow-glowBlue; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+}
+
+@keyframes blink { 50% { opacity: 0; } }
+.cursor { animation: blink 1.1s steps(1) infinite; }

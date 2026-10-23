@@ -1,0 +1,29 @@
+---
+import { education, experience } from '../data/profileData';
+const groups = [
+  { label: 'Experiencia laboral', dot: 'bg-violet-500', items: experience.map((e) => ({ ...e, text: e.text })) },
+  { label: 'Educación', dot: 'bg-blue-500', items: education.map((e) => ({ ...e, text: '' })) },
+];
+---
+<section id="experience" class="section">
+  <p class="h2">// git log --career</p>
+  <h2 class="h2-title">Experiencia y educación</h2>
+  <div class="grid gap-12 md:grid-cols-2">
+    {groups.map((g) => (
+      <div>
+        <h3 class="mb-6 font-mono text-sm text-ink">{g.label}</h3>
+        <ol class="relative space-y-8 border-l border-line pl-6">
+          {g.items.map((i) => (
+            <li class="relative">
+              <span class={`absolute -left-[30px] top-1.5 h-2.5 w-2.5 rounded-full ring-4 ring-bg ${g.dot}`}></span>
+              <p class="font-mono text-xs text-mute">{i.period}</p>
+              <h4 class="mt-1 font-semibold">{i.title}</h4>
+              <p class="text-sm text-violet-300">{i.org}</p>
+              {i.text && <p class="mt-2 text-sm leading-relaxed text-mute">{i.text}</p>}
+            </li>
+          ))}
+        </ol>
+      </div>
+    ))}
+  </div>
+</section>

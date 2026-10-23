@@ -1,0 +1,58 @@
+---
+import { profile } from '../data/profileData';
+---
+<section id="contact" class="section">
+  <p class="h2">// contact --open</p>
+  <h2 class="h2-title">Hablemos</h2>
+  <div class="grid gap-6 md:grid-cols-2">
+    <div class="card card-hover p-6">
+      <h3 class="font-semibold">Contacto directo</h3>
+      <dl class="mt-5 space-y-4 text-sm">
+        <div><dt class="font-mono text-xs text-mute">email</dt><dd class="mt-1 break-all">{profile.email}</dd></div>
+        <div><dt class="font-mono text-xs text-mute">teléfono</dt><dd class="mt-1"><a class="hover:text-violet-400" href={`tel:${profile.phone.replace(/\s/g, '')}`}>{profile.phone}</a></dd></div>
+        <div><dt class="font-mono text-xs text-mute">ubicación</dt><dd class="mt-1">{profile.location}</dd></div>
+      </dl>
+      <button id="copy-email" type="button" data-email={profile.email} class="btn-ghost mt-6 w-full">Copiar email</button>
+      <p id="copy-status" class="mt-2 h-4 font-mono text-xs text-emerald-400" role="status" aria-live="polite"></p>
+    </div>
+    <form id="contact-form" class="card space-y-4 p-6" data-email={profile.email}>
+      <div>
+        <label for="name" class="font-mono text-xs text-mute">Nombre</label>
+        <input id="name" name="name" required class="mt-1 w-full rounded-lg border border-line bg-zinc-950 px-3 py-2 text-sm outline-none transition focus:border-violet-500" />
+      </div>
+      <div>
+        <label for="email" class="font-mono text-xs text-mute">Email</label>
+        <input id="email" name="email" type="email" required class="mt-1 w-full rounded-lg border border-line bg-zinc-950 px-3 py-2 text-sm outline-none transition focus:border-violet-500" />
+      </div>
+      <div>
+        <label for="message" class="font-mono text-xs text-mute">Mensaje</label>
+        <textarea id="message" name="message" rows="4" required class="mt-1 w-full resize-y rounded-lg border border-line bg-zinc-950 px-3 py-2 text-sm outline-none transition focus:border-violet-500"></textarea>
+      </div>
+      <button type="submit" class="btn-primary w-full">Enviar mensaje</button>
+      <p class="text-xs text-zinc-500">Se abrirá tu cliente de correo con el mensaje preparado.</p>
+    </form>
+  </div>
+</section>
+
+<script>
+  const copyBtn = document.getElementById('copy-email') as HTMLButtonElement | null;
+  const status = document.getElementById('copy-status');
+  copyBtn?.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(copyBtn.dataset.email ?? '');
+      if (status) status.textContent = 'Email copiado';
+    } catch {
+      if (status) status.textContent = 'No se pudo copiar. Selecciónalo manualmente.';
+    }
+    setTimeout(() => { if (status) status.textContent = ''; }, 2500);
+  });
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const subject = encodeURIComponent(`Contacto desde portfolio: ${d.get('name')}`);
+    const body = encodeURIComponent(`${d.get('message')}\n\n— ${d.get('name')} (${d.get('email')})`);
+    window.location.href = `mailto:${form.dataset.email}?subject=${subject}&body=${body}`;
+  });
+</script>

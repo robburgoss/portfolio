@@ -1,0 +1,56 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import AboutRecruiter from '../components/AboutRecruiter.astro';
+import SkillsMatrix from '../components/SkillsMatrix.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import ExperienceTimeline from '../components/ExperienceTimeline.astro';
+import ContactSection from '../components/ContactSection.astro';
+import Footer from '../components/Footer.astro';
+
+const projects = (await getCollection('projects')).sort(
+  (a, b) => Number(b.data.featured) - Number(a.data.featured) || a.data.title.localeCompare(b.data.title),
+);
+const filters = [
+  ['all', 'Todos'], ['real', 'Proyectos reales'], ['placeholder', 'Líneas de investigación'],
+];
+---
+<Layout>
+  <Header />
+  <main>
+    <Hero />
+    <AboutRecruiter />
+    <SkillsMatrix />
+    <section id="projects" class="section">
+      <p class="h2">// ls projects/</p>
+      <h2 class="h2-title">Proyectos</h2>
+      <div class="mb-8 flex flex-wrap gap-2" role="group" aria-label="Filtrar proyectos">
+        {filters.map(([key, label], i) => (
+          <button type="button" data-filter={key} aria-pressed={i === 0} class="filter-btn badge cursor-pointer hover:border-violet-500/60 aria-pressed:border-violet-500 aria-pressed:bg-violet-500/10 aria-pressed:text-violet-300">{label}</button>
+        ))}
+      </div>
+      <div class="grid gap-4 md:grid-cols-2">
+        {projects.map((p) => (
+          <div data-kind={p.data.type} class="project-item"><ProjectCard {...p.data} /></div>
+        ))}
+      </div>
+    </section>
+    <ExperienceTimeline />
+    <ContactSection />
+  </main>
+  <Footer />
+</Layout>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+  const items = document.querySelectorAll<HTMLElement>('.project-item');
+  buttons.forEach((btn) =>
+    btn.addEventListener('click', () => {
+      const f = btn.dataset.filter;
+      buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+      items.forEach((el) => { el.hidden = f !== 'all' && el.dataset.kind !== f; });
+    }),
+  );
+</script>

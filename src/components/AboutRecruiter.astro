@@ -1,0 +1,16 @@
+---
+import { snapshot } from '../data/profileData';
+---
+<section id="about" class="section !pt-8">
+  <p class="h2">// recruiter snapshot</p>
+  <h2 class="h2-title">Lo que aporto desde el primer día</h2>
+  <div class="grid gap-4 md:grid-cols-3">
+    {snapshot.map((s) => (
+      <article class="card card-hover p-6">
+        <span class="inline-flex h-9 min-w-9 items-center justify-center rounded-md bg-violet-500/10 px-2 font-mono text-sm text-violet-400">{s.icon}</span>
+        <h3 class="mt-4 font-semibold">{s.title}</h3>
+        <p class="mt-2 text-sm leading-relaxed text-mute">{s.text}</p>
+      </article>
+    ))}
+  </div>
+</section>
