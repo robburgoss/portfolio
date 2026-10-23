@@ -9,7 +9,7 @@ export const profile = {
   location: 'Velilla de San Antonio, Madrid',
   // TODO: sustituye por tus URLs reales
   github: 'https://github.com/robburgoss',
-  linkedin: 'https://www.linkedin.com/in/roberto-burgos-vidal-7196a228b/?isSelfProfile=true',
+  linkedin: 'https://www.linkedin.com/in/roberto-burgos-vidal-7196a228b',
   cv: '/cv-roberto-burgos.pdf',
   emailjs: { publicKey: 'R3wJc5n9dtOEPPzLC', serviceId: 'service_tyv6xie', templateId: 'template_bulgfx9' },
 };
