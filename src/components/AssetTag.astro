@@ -1,0 +1,55 @@
+---
+// Módulo de inventario: la etiqueta que llevan los equipos corporativos, con lectura tipo HUD.
+import { profile } from '../data/profileData';
+
+const code = 'RB-2026-DAW';
+
+// Código de barras decorativo generado a partir del código: cada bit es una barra fina o gruesa.
+const bits = [...code].flatMap((c) => c.charCodeAt(0).toString(2).padStart(7, '0').split('').map(Number));
+let x = 0;
+const bars = bits.map((b) => {
+  const w = b ? 2.4 : 1;
+  const bar = { x, w };
+  x += w + 1.3;
+  return bar;
+});
+const width = x;
+
+const rows = [
+  ['Asignado a', profile.name],
+  ['Puesto', profile.role],
+  ['Ubicación', profile.location],
+];
+---
+<figure class="relative w-full max-w-[23rem] border border-line bg-panel/85 p-5 backdrop-blur-sm">
+  <span class="corner -left-px -top-px border-l-2 border-t-2" aria-hidden="true"></span>
+  <span class="corner -right-px -top-px border-r-2 border-t-2" aria-hidden="true"></span>
+  <span class="corner -bottom-px -left-px border-b-2 border-l-2" aria-hidden="true"></span>
+  <span class="corner -bottom-px -right-px border-b-2 border-r-2" aria-hidden="true"></span>
+
+  <div class="flex items-center justify-between border-b border-line pb-3 text-sm">
+    <span class="wide font-semibold text-signal">Inventario IT</span>
+    <span class="tnum text-mute">{code}</span>
+  </div>
+  <dl class="mt-3.5 space-y-1.5 text-sm">
+    {rows.map(([k, v]) => (
+      <div class="grid grid-cols-[5.75rem_1fr] gap-2">
+        <dt class="text-mute">{k}</dt>
+        <dd class="font-medium">{v}</dd>
+      </div>
+    ))}
+    <div class="grid grid-cols-[5.75rem_1fr] gap-2">
+      <dt class="text-mute">Estado</dt>
+      <dd class="flex items-center gap-2 font-medium text-signal">
+        <span class="h-2 w-2 bg-signal" aria-hidden="true"></span>{profile.availability}
+      </dd>
+    </div>
+  </dl>
+  <div class="relative mt-4 overflow-hidden">
+    <svg class="block h-10 w-full text-ink" viewBox={`0 0 ${width} 40`} preserveAspectRatio="none" aria-hidden="true">
+      {bars.map((b) => <rect x={b.x} y="0" width={b.w} height="40" fill="currentColor" />)}
+    </svg>
+    <span class="scan absolute inset-x-0 top-0 h-px bg-signal shadow-[0_0_8px_1px_rgb(20_189_235/0.8)]" aria-hidden="true"></span>
+  </div>
+  <figcaption class="sr-only">{profile.name}, {profile.role}. {profile.availability}.</figcaption>
+</figure>

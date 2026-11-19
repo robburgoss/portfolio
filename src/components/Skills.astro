@@ -1,0 +1,14 @@
+---
+import { skills } from '../data/profileData';
+import Section from './Section.astro';
+---
+<Section id="skills" title="Conocimientos">
+  <dl class="space-y-5">
+    {skills.map((group) => (
+      <div class="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-6">
+        <dt class="font-semibold">{group.category}</dt>
+        <dd class="max-w-[62ch] text-mute">{group.items.join(', ')}</dd>
+      </div>
+    ))}
+  </dl>
+</Section>

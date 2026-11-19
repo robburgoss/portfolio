@@ -1,9 +1,7 @@
 ---
 title: "Rap & Graffiti Web"
-description: "Portal web temático sobre la cultura del rap y el graffiti desarrollado como proyecto formativo. Diseño adaptativo enfocado en estructura semántica limpia y estilos personalizados sin frameworks."
-tags: ["HTML5", "CSS3", "Web Design"]
-type: "real"
-status: "Publicado"
+description: "Web sobre la cultura del rap y el graffiti, hecha como proyecto de clase. HTML semántico y CSS propio, sin frameworks y adaptada a móvil."
+tags: ["HTML", "CSS", "Diseño responsive"]
 featured: true
 ---
 Proyecto formativo de maquetación web con HTML semántico y CSS propio, sin frameworks.

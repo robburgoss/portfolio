@@ -1,29 +1,18 @@
 ---
-import { education, experience } from '../data/profileData';
-const groups = [
-  { label: 'Experiencia laboral', dot: 'bg-violet-500', items: experience.map((e) => ({ ...e, text: e.text })) },
-  { label: 'Educación', dot: 'bg-blue-500', items: education.map((e) => ({ ...e, text: '' })) },
-];
+import { timeline } from '../data/profileData';
+import Section from './Section.astro';
 ---
-<section id="experience" class="section">
-  <p class="h2">// git log --career</p>
-  <h2 class="h2-title">Experiencia y educación</h2>
-  <div class="grid gap-12 md:grid-cols-2">
-    {groups.map((g) => (
-      <div>
-        <h3 class="mb-6 font-mono text-sm text-ink">{g.label}</h3>
-        <ol class="relative space-y-8 border-l border-line pl-6">
-          {g.items.map((i) => (
-            <li class="relative">
-              <span class={`absolute -left-[30px] top-1.5 h-2.5 w-2.5 rounded-full ring-4 ring-bg ${g.dot}`}></span>
-              <p class="font-mono text-xs text-mute">{i.period}</p>
-              <h4 class="mt-1 font-semibold">{i.title}</h4>
-              <p class="text-sm text-violet-300">{i.org}</p>
-              {i.text && <p class="mt-2 text-sm leading-relaxed text-mute">{i.text}</p>}
-            </li>
-          ))}
-        </ol>
-      </div>
+<Section id="experience" title="Experiencia y formación">
+  <ol class="space-y-8">
+    {timeline.map((i) => (
+      <li class="grid gap-1 sm:grid-cols-[8.5rem_1fr] sm:gap-6">
+        <p class="tnum pt-0.5 text-[0.95rem] text-mute">{i.period}</p>
+        <div>
+          <h3 class="font-semibold leading-snug">{i.title}</h3>
+          <p class="text-[0.95rem] text-mute">{i.org}</p>
+          {i.text && <p class="mt-2 max-w-[62ch] text-[0.95rem]">{i.text}</p>}
+        </div>
+      </li>
     ))}
-  </div>
-</section>
+  </ol>
+</Section>

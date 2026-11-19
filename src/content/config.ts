@@ -6,8 +6,9 @@ const projects = defineCollection({
     title: z.string(),
     description: z.string(),
     tags: z.array(z.string()),
-    type: z.enum(['real', 'placeholder']),
-    status: z.enum(['Publicado', 'En Desarrollo', 'Planificado']),
+    // Solo se muestra en la web cuando no está publicado.
+    status: z.enum(['Publicado', 'En desarrollo']).default('Publicado'),
+    year: z.number().int().optional(),
     githubUrl: z.string().url().optional(),
     demoUrl: z.string().url().optional(),
     featured: z.boolean().default(false),

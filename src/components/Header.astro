@@ -1,29 +1,27 @@
 ---
 import { profile } from '../data/profileData';
 const links = [
-  ['#about', 'about'], ['#skills', 'skills'], ['#projects', 'projects'], ['#experience', 'experience'], ['#contact', 'contact'],
+  ['#projects', 'Proyectos'],
+  ['#experience', 'Experiencia'],
+  ['#skills', 'Conocimientos'],
+  ['#contact', 'Contacto'],
 ];
 ---
-<div class="border-b border-line bg-zinc-950 font-mono text-xs text-zinc-400">
-  <div class="mx-auto flex max-w-5xl items-center gap-2 px-5 py-2 sm:px-8">
-    <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400"></span>
-    <p class="truncate"><span class="text-violet-400">$</span> status: <span class="text-blue-400">seeking backend / devops junior roles</span><span class="cursor ml-0.5 text-violet-400">▌</span></p>
-  </div>
-</div>
-<header class="sticky top-0 z-50 border-b border-line bg-bg/80 backdrop-blur">
-  <div class="mx-auto flex max-w-5xl items-center justify-between gap-4 px-5 py-3 sm:px-8">
-    <a href="#top" class="font-mono text-sm font-semibold text-ink hover:text-violet-400 transition">[RB] <span class="hidden text-zinc-500 sm:inline">{profile.handle}</span></a>
-    <nav class="hidden items-center gap-6 md:flex" aria-label="Principal">
-      {links.map(([href, label]) => <a href={href} class="font-mono text-xs text-mute transition hover:text-ink">{label}</a>)}
+<header class="sticky top-0 z-50 border-b border-line bg-paper">
+  <div class="wrap flex h-14 items-center justify-between gap-4">
+    <a href="#top" class="wide text-[0.95rem] font-semibold tracking-tight transition-colors hover:text-signal">{profile.name}</a>
+    <nav class="hidden items-center gap-7 text-[0.95rem] md:flex" aria-label="Principal">
+      {links.map(([href, label]) => <a href={href} class="text-mute transition-colors hover:text-ink">{label}</a>)}
+      <a href={profile.cv} download class="link font-medium">CV</a>
     </nav>
-    <div class="flex items-center gap-3">
-      <a href={profile.cv} download class="btn-primary !px-4 !py-2 text-xs">Descargar CV</a>
-      <details class="relative md:hidden">
-        <summary class="cursor-pointer list-none rounded-md border border-line px-2.5 py-1.5 font-mono text-xs" aria-label="Menú">menu</summary>
-        <div class="absolute right-0 mt-2 w-40 rounded-lg border border-line bg-surface p-2">
-          {links.map(([href, label]) => <a href={href} class="block rounded px-3 py-2 font-mono text-xs text-mute hover:bg-zinc-800 hover:text-ink">{label}</a>)}
-        </div>
-      </details>
-    </div>
+    <details class="group relative md:hidden">
+      <summary class="cursor-pointer list-none rounded-[2px] border border-line bg-panel px-3 py-1.5 text-sm [&::-webkit-details-marker]:hidden">
+        <span class="group-open:hidden">Menú</span><span class="hidden group-open:inline">Cerrar</span>
+      </summary>
+      <nav class="absolute right-0 mt-2 w-48 rounded-[2px] border border-line bg-panel py-2 shadow-lg shadow-black/10 dark:shadow-black/40" aria-label="Principal">
+        {links.map(([href, label]) => <a href={href} class="block px-4 py-2 text-[0.95rem] hover:bg-paper hover:text-signal">{label}</a>)}
+        <a href={profile.cv} download class="block border-t border-line px-4 pb-1 pt-3 text-[0.95rem] font-medium hover:bg-paper hover:text-signal">Descargar CV</a>
+      </nav>
+    </details>
   </div>
 </header>

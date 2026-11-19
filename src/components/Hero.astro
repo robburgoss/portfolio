@@ -1,18 +1,25 @@
 ---
 import { profile } from '../data/profileData';
+import AssetTag from './AssetTag.astro';
 ---
-<section id="top" class="section !pt-20 sm:!pt-28">
-  <p class="badge border-violet-500/40 text-violet-300">{profile.badge}</p>
-  <h1 class="mt-6 text-4xl font-bold tracking-tight sm:text-6xl">{profile.name}</h1>
-  <p class="mt-6 max-w-2xl text-base leading-relaxed text-mute sm:text-lg">{profile.summary}</p>
-  <div class="mt-8 flex flex-wrap gap-3">
-    <a href="#projects" class="btn-primary">Ver proyectos</a>
-    <a href={`mailto:${profile.email}`} class="btn-ghost">Contactar</a>
+<section id="top" class="relative overflow-hidden">
+  <div class="grid-bg pointer-events-none absolute inset-0" aria-hidden="true"></div>
+  <div class="wrap relative pb-20 pt-14 sm:pb-28 sm:pt-24">
+    <h1 class="wide text-[clamp(2.3rem,8.6vw,5.6rem)] font-bold leading-[0.95] tracking-[-0.035em]">
+      Roberto<br />Burgos Vidal
+    </h1>
+    <div class="mt-10 grid gap-14 md:grid-cols-[1fr_auto] md:items-end md:gap-12">
+      <div>
+        <p class="max-w-[24ch] text-[1.4rem] font-medium leading-snug tracking-tight sm:text-[1.65rem]">{profile.headline}</p>
+        <p class="mt-5 max-w-[60ch] text-mute">{profile.summary}</p>
+        <div class="mt-9 flex flex-wrap items-center gap-x-6 gap-y-4">
+          <a href="#projects" class="btn-primary">Ver proyectos</a>
+          <a href={profile.cv} download class="link font-medium">Descargar CV</a>
+          <a href={profile.github} class="link" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a href={profile.linkedin} class="link" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        </div>
+      </div>
+      <AssetTag />
+    </div>
   </div>
-  <ul class="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 font-mono text-xs text-mute">
-    <li><a class="transition hover:text-violet-400" href={profile.github} target="_blank" rel="noopener noreferrer">github</a></li>
-    <li><a class="transition hover:text-violet-400" href={profile.linkedin} target="_blank" rel="noopener noreferrer">linkedin</a></li>
-    <li><a class="transition hover:text-violet-400" href={`mailto:${profile.email}`}>{profile.email}</a></li>
-    <li class="text-zinc-500">{profile.location}</li>
-  </ul>
 </section>

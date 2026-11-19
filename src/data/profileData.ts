@@ -1,9 +1,10 @@
 export const profile = {
   name: 'Roberto Burgos Vidal',
-  handle: 'roberto.burgos',
-  badge: 'Técnico de Sistemas & Futuro Desarrollador Backend / IA',
+  headline: 'Técnico informático y técnico superior en desarrollo web',
   summary:
-    'Estudiante de DAW (Desarrollo Web) con base sólida en SMR (Sistemas Microinformáticos y Redes). Especializado en diagnóstico de hardware/software, soporte de red y programación orientada a Backend (Java, PHP, JS). Acelerando habilidades en integración de IA para la automatización de infraestructura.',
+    'Estudio 2º de DAW en Digitech FP después de un grado medio en SMR. He reparado y preparado equipos para clientes como El Corte Inglés, Fremap o la ONU, y ahora busco prácticas donde juntar las dos cosas: sistemas y código.',
+  role: 'Estudiante de DAW, 2º curso',
+  availability: 'Disponible para prácticas',
   email: 'roburgosvidal@gmail.com',
   phone: '+34 684 02 38 36',
   location: 'Velilla de San Antonio, Madrid',
@@ -14,48 +15,51 @@ export const profile = {
   emailjs: { publicKey: 'R3wJc5n9dtOEPPzLC', serviceId: 'service_tyv6xie', templateId: 'template_bulgfx9' },
 };
 
-export const snapshot = [
-  {
-    icon: '▣',
-    title: 'Infraestructura real',
-    text: 'Experiencia demostrable preparando y maquetando equipos para entornos corporativos de gran escala (El Corte Inglés, ONU, Fremap, Ginefiv).',
-  },
-  {
-    icon: '{ }',
-    title: 'Base multilenguaje',
-    text: 'Formación en Java, PHP, JavaScript, SQL y desarrollo estructurado.',
-  },
-  {
-    icon: 'C1',
-    title: 'Inglés C1 y soft skills',
-    text: 'Dominio avanzado de inglés técnico, trato directo con cliente y resolución rápida de problemas.',
-  },
-];
-
 export const skills = [
-  { category: 'Backend & Lenguajes', accent: 'violet', items: ['Java', 'PHP', 'JavaScript', 'SQL / Relational DBs', 'HTML5 / CSS3'] },
-  { category: 'Sistemas & Redes (SMR)', accent: 'blue', items: ['Diagnóstico de Hardware', 'Soporte de Servidores y Redes Locales', 'Maquetado e Imágenes de SO', 'Windows Server / Linux Básicos', 'Reparación CashKeeper / TPV'] },
-  { category: 'Herramientas & Futuro Stack', accent: 'violet', items: ['Git / GitHub', 'Claude Code / LLM Prompting', 'IA aplicada a desarrollo', 'Entornos de ejecución CLI'] },
-  { category: 'Idiomas', accent: 'blue', items: ['Español (Nativo)', 'Inglés (C1 - Avanzado)'] },
+  { category: 'Backend', items: ['Java', 'PHP', 'JavaScript', 'SQL y bases de datos relacionales', 'HTML y CSS'] },
+  {
+    category: 'Sistemas',
+    items: [
+      'Diagnóstico y reparación de hardware',
+      'Maquetado de imágenes de sistema',
+      'Redes locales y soporte a servidores',
+      'Windows Server y Linux (nivel básico)',
+      'Reparación de CashKeeper y TPV',
+    ],
+  },
+  { category: 'Herramientas', items: ['Git y GitHub', 'Terminal', 'Claude Code y otros asistentes de IA'] },
+  { category: 'Idiomas', items: ['Español nativo', 'Inglés C1'] },
 ];
 
-export const education = [
-  { period: '2025 - 2027', title: 'Grado Superior en Desarrollo de Aplicaciones Web (DAW)', org: 'DIGITECH FP' },
-  { period: '2023 - 2025', title: 'Grado Medio en Sistemas Microinformáticos y Redes (SMR)', org: 'IES Los Olivos' },
-  { period: '2018 - 2022', title: 'ESO', org: 'Colegio Malvar' },
-];
+type TimelineItem = { start: string; period: string; title: string; org: string; text?: string };
 
-export const experience = [
+// `start` (AAAA-MM) solo sirve para ordenar la línea temporal, de más reciente a más antiguo.
+export const timeline: TimelineItem[] = [
   {
-    period: 'Marzo 2025 - Junio 2025',
-    title: 'Técnico Informático (Becario)',
-    org: 'Keycoes Comunicaciones (San Blas-Canillejas)',
-    text: 'Reparación y diagnóstico de hardware/software. Maquetado y preparación de imágenes de equipos para clientes multinacionales e instituciones (El Corte Inglés, Primaprix, Fremap, Ginefiv, ONU). Soporte de campo y atención a incidencias técnicas.',
+    start: '2025-09',
+    period: '2025 – 2027',
+    title: 'Grado Superior en Desarrollo de Aplicaciones Web (DAW)',
+    org: 'Digitech FP',
   },
   {
-    period: 'Julio 2025 - Agosto 2025',
-    title: 'Agente Inmobiliario',
-    org: 'Tecnocasa (Velilla de San Antonio)',
-    text: 'Negociación, gestión administrativa y atención directa con clientes, desarrollando competencias clave de comunicación y resolución de conflictos.',
+    start: '2025-07',
+    period: 'jul – ago 2025',
+    title: 'Agente inmobiliario',
+    org: 'Tecnocasa, Velilla de San Antonio',
+    text: 'Negociación, gestión administrativa y atención directa a clientes.',
   },
-];
+  {
+    start: '2025-03',
+    period: 'mar – jun 2025',
+    title: 'Técnico informático en prácticas',
+    org: 'Keycoes Comunicaciones, San Blas-Canillejas',
+    text: 'Diagnóstico y reparación de hardware y software. Maquetado y preparación de equipos para El Corte Inglés, Primaprix, Fremap, Ginefiv y la ONU. Soporte de campo e incidencias técnicas.',
+  },
+  {
+    start: '2023-09',
+    period: '2023 – 2025',
+    title: 'Grado Medio en Sistemas Microinformáticos y Redes (SMR)',
+    org: 'IES Los Olivos',
+  },
+  { start: '2018-09', period: '2018 – 2022', title: 'ESO', org: 'Colegio Malvar' },
+].sort((a, b) => b.start.localeCompare(a.start));

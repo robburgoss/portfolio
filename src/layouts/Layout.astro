@@ -1,7 +1,10 @@
 ---
 import '../styles/global.css';
 interface Props { title?: string; description?: string }
-const { title = 'Roberto Burgos Vidal | Técnico de Sistemas & Backend Jr', description = 'Portfolio de Roberto Burgos Vidal: técnico de sistemas (SMR) y desarrollador backend (DAW) con foco en IA.' } = Astro.props;
+const {
+  title = 'Roberto Burgos Vidal | Técnico informático y desarrollo web',
+  description = 'Portfolio de Roberto Burgos Vidal: técnico informático y técnico superior en desarrollo web.',
+} = Astro.props;
 ---
 <!doctype html>
 <html lang="es" class="scroll-smooth">
@@ -9,13 +12,15 @@ const { title = 'Roberto Burgos Vidal | Técnico de Sistemas & Backend Jr', desc
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    <meta name="theme-color" content="#F7F8FA" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#00100B" media="(prefers-color-scheme: dark)" />
     <title>{title}</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%238b5cf6'/><text x='16' y='22' font-size='15' font-family='monospace' font-weight='700' text-anchor='middle' fill='white'>RB</text></svg>" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%232F3BFF'/><text x='16' y='21.5' font-size='14' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='white'>RB</text></svg>" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet" />
   </head>
-  <body class="bg-bg text-ink font-sans antialiased selection:bg-violet-500/30">
+  <body class="bg-paper font-sans text-ink antialiased">
     <slot />
   </body>
 </html>

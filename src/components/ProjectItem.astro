@@ -1,0 +1,26 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  tags: string[];
+  status: 'Publicado' | 'En desarrollo';
+  year?: number;
+  githubUrl?: string;
+  demoUrl?: string;
+}
+const { title, description, tags, status, year, githubUrl, demoUrl } = Astro.props;
+---
+<li class="py-7 first:pt-0 last:pb-0">
+  <div class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+    <h3 class="wide text-xl font-semibold tracking-tight">{title}</h3>
+    {(year || status !== 'Publicado') && (
+      <p class="tnum text-sm text-mute">{status !== 'Publicado' ? status : year}</p>
+    )}
+  </div>
+  <p class="mt-2 max-w-[62ch] text-mute">{description}</p>
+  <div class="mt-3 flex flex-wrap items-baseline gap-x-6 gap-y-2 text-[0.95rem]">
+    <p>{tags.join(', ')}</p>
+    {githubUrl && <a class="link" href={githubUrl} target="_blank" rel="noopener noreferrer">Código</a>}
+    {demoUrl && <a class="link" href={demoUrl} target="_blank" rel="noopener noreferrer">Demo</a>}
+  </div>
+</li>
